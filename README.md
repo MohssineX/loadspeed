@@ -2,7 +2,7 @@
 
 A simple and fast command-line tool for testing your internet speed (download, upload, ping).
 
-![loadspeed](loadspeed)
+![loadspeed](loadspeed.png)
 
 ## Features
 
