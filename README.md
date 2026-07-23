@@ -1,5 +1,8 @@
 # loadspeed
 
+![Python](https://img.shields.io/badge/python-3-blue)
+![License](https://img.shields.io/badge/license-GPLv3-blue)
+
 A simple and fast command-line tool for testing your internet speed (download, upload, ping).
 
 ![loadspeed](loadspeed.png)
