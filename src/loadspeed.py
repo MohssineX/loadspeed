@@ -8,8 +8,6 @@ def main():
 
     try :
 
-        
-
         import os 
         import speedtest
         import sys
