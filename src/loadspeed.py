@@ -63,7 +63,7 @@ def main():
 
                 # Upload
 
-                upload_speed = speed_test.upload()
+                upload_speed = speed_test.upload(pre_allocate=False)
                 upload_speed_Mbps = upload_speed / 1000000
 
                 print(f"{color_green}Upload : {upload_speed_Mbps:.2f}{color_reset} Mbps")
@@ -82,7 +82,7 @@ def main():
 
                 # Upload
 
-                upload_speed = speed_test.upload()
+                upload_speed = speed_test.upload(pre_allocate=False)
                 upload_speed_Mbps = upload_speed / 1000000
 
                 print(f"{color_green}Upload : {upload_speed_Mbps:.2f}{color_reset} Mbps")
