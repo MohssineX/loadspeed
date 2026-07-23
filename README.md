@@ -58,6 +58,11 @@ Upload only :
 ```bash
 loadspeed -u
 ```
+saved Results as json file :
+
+```bash
+loadspeed -j
+```
 
 ## Prefer not to use pip? Clone it instead
 
