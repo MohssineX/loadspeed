@@ -59,6 +59,29 @@ Upload only :
 loadspeed -u
 ```
 
+## Prefer not to use pip? Clone it instead
+
+### Installation
+
+#### Clone the repository :
+
+```bash
+git clone https://github.com/MohssineX/loadspeed.git
+cd loadspeed
+```
+
+#### Install dependencies :
+
+```bash
+pip install -r requirements.txt
+```
+
+Or
+
+```bash
+pip install speedtest-cli
+```
+
 ## Stopping the Tool
 
 You can stop the test at any time by pressing :
