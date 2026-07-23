@@ -82,6 +82,20 @@ Or
 pip install speedtest-cli
 ```
 
+### Usage :
+
+Run the program :
+
+```bash
+python loadspeed.py
+```
+
+If your system uses `python3` :
+
+```bash
+python3 loadspeed.py
+```
+
 ## Stopping the Tool
 
 You can stop the test at any time by pressing :
