@@ -8,9 +8,10 @@ def main():
 
     try :
 
+        import sys
         import os 
         import speedtest
-        import sys
+        import json
 
         # Enable ANSI escape codes on Windows (not needed on Linux/Mac)
 
@@ -18,7 +19,6 @@ def main():
             os.system("")
 
         # color variables
-
 
         color_green = "\033[32m"
         color_yellow = "\033[33m"
@@ -29,80 +29,126 @@ def main():
         print("loadspeed")
         print("")
         print("Checking...")
-        print("")
+
 
         try :
+            
+            # server func 
 
-            speed_test = speedtest.Speedtest()
+            def best_server() :
 
-            speed_test.get_best_server()
+                speed_test = speedtest.Speedtest()
+                speed_test.get_best_server()
+                return speed_test
+
+
+            # Ping func 
+
+            def ping(speed_test) :
+
+                ping = f"{speed_test.results.ping:.2f}"
+                print(f"{color_yellow}Ping : {ping}{color_reset} ms")
+
+                return ping
+
+            
+            # Download func 
+
+            def download(speed_test) :
+
+                download_speed = speed_test.download()
+
+                download_speed_Mbps = f"{download_speed / 1000000:.2f}"
+
+                print(f"{color_light_blue}Download : {download_speed_Mbps}{color_reset} Mbps")
+
+                return download_speed_Mbps
+
+            # upload func 
+
+            def upload(speed_test) :
+
+                upload_speed = speed_test.upload(pre_allocate=False)
+                upload_speed_Mbps = f"{upload_speed / 1000000 :.2f}"
+
+                print(f"{color_green}Upload : {upload_speed_Mbps}{color_reset} Mbps")
+
+                return upload_speed_Mbps
+
 
             # Ping only
+
             if "-p" in sys.argv :
-                
-                # Ping
-
-                ping = speed_test.results.ping
-                print(f"{color_yellow}Ping : {ping:.2f}{color_reset} ms")
-
-            # Download only
-            elif "-d" in sys.argv :
-
-                # Download
-
-                download_speed = speed_test.download()
-
-                download_speed_Mbps = download_speed / 1000000
-
-                print(f"{color_light_blue}Download : {download_speed_Mbps:.2f}{color_reset} Mbps")
-
-            # Upload only
-            elif "-u" in sys.argv :
-
-                # Upload
-
-                upload_speed = speed_test.upload(pre_allocate=False)
-                upload_speed_Mbps = upload_speed / 1000000
-
-                print(f"{color_green}Upload : {upload_speed_Mbps:.2f}{color_reset} Mbps")
-
-            # all
-            else :
-            
-                # Download
-
-                download_speed = speed_test.download()
-
-                download_speed_Mbps = download_speed / 1000000
 
                 print("")
-                print(f"{color_light_blue}Download : {download_speed_Mbps:.2f}{color_reset} Mbps")
+                speed_test = best_server()  
+                ping(speed_test)
 
-                # Upload
+            # Download only
 
-                upload_speed = speed_test.upload(pre_allocate=False)
-                upload_speed_Mbps = upload_speed / 1000000
+            elif "-d" in sys.argv :
 
-                print(f"{color_green}Upload : {upload_speed_Mbps:.2f}{color_reset} Mbps")
+                print("")
+                speed_test = best_server()  
+                download(speed_test)
 
-                # ping
+            # Upload only
 
-                ping = speed_test.results.ping
-                print(f"{color_yellow}Ping : {ping:.2f}{color_reset} ms")
+            elif "-u" in sys.argv :
 
+                print("")
+                speed_test = best_server()  
+                upload(speed_test)
+
+            # Json
+
+            elif "-j" in sys.argv :
+
+                print("")
+                speed_test = best_server()
+                
+                download_result = download(speed_test)
+                upload_result = upload(speed_test)
+                ping_result = ping(speed_test)
+
+                data = {
+
+                    
+                    "Download" : download_result ,
+                    "Upload" : upload_result ,
+                    "ping" : ping_result 
+
+                }
+
+                with open("loadspeed.json", "w", encoding="utf-8") as file:
+                    json.dump(data, file, ensure_ascii=False, indent=4)
+
+                full_path = os.path.abspath("loadspeed.json")   
+                print("")
+                print(f"{color_green}Results saved to: {full_path}{color_reset}")
+
+            # all
+
+            else :
+
+                print("")
+                speed_test = best_server()  
+                download(speed_test)
+                upload(speed_test)
+                ping(speed_test)
+
+            
             print("")
             print("Done!")
         
         except Exception  :
 
-            print("")
             print(f"{color_red}err : Connection failed :({color_reset}")
 
 
     except KeyboardInterrupt :
 
         print("")
-
         print(f"{color_yellow}Thank you for using loadspeed!{color_reset}")
         print(f"{color_yellow}Author : https://github.com/MohssineX{color_reset}")
         print()
@@ -111,4 +157,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
