@@ -58,7 +58,7 @@ Upload only :
 ```bash
 loadspeed -u
 ```
-saved Results as json file :
+save Results as json file :
 
 ```bash
 loadspeed -j
